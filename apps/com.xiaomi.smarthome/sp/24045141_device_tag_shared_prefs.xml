@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="custom_tag_info"></string>
+    <string name="custom_tag_version_info">{&quot;ver&quot;:1,&quot;custom_tag_last_time&quot;:1515047856236}</string>
+    <string name="custom_tag_order_info"></string>
+    <string name="custom_tag_router_info">{&quot;router_info&quot;:[{&quot;bssid&quot;:&quot;9C:D2:4B:33:74:4A&quot;,&quot;ssid&quot;:&quot;ChinaNet-9Zpf&quot;,&quot;location&quot;:{&quot;province&quot;:&quot;四川省&quot;,&quot;city&quot;:&quot;德阳市&quot;,&quot;township&quot;:&quot;旌东街道&quot;,&quot;addr&quot;:&quot;四川省德阳市旌阳区旌东街道西湖街177号&quot;}}],&quot;router_location_last_time&quot;:1515047856236}</string>
+</map>

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="normal_oc_63" value="true" />
+    <boolean name="normal_oc_20" value="false" />
+    <boolean name="normal_oc_87" value="true" />
+    <int name="normal_oc_21" value="900" />
+    <int name="normal_oc_88" value="3600" />
+    <int name="oc_version_1" value="115" />
+    <boolean name="normal_oc_26" value="false" />
+    <boolean name="normal_oc_143" value="true" />
+    <int name="normal_oc_162" value="5" />
+    <boolean name="normal_oc_141" value="false" />
+    <int name="normal_oc_160" value="1" />
+    <string name="normal_oc_161">com.android.browser:$:com.ss.android.ugc.aweme~$~com.smile.gifmaker~$~com.kuaishou.nebula~$~com.baidu.searchbox~$~com.sina.weibo~$~com.ss.android.article.news~$~com.ss.android.ugc.aweme.lite~$~com.dragon.read~$~com.ss.android.article.video~$~com.UCMobile~$~com.tencent.qqlive~$~com.youku.phone~$~com.tencent.mtt~$~com.ss.android.auto~$~com.zhihu.android~$~com.qiyi.video~$~com.tencent.news#$#com.xiaomi.mipushdemo:$:com.xhey.xcamera</string>
+    <long name="normal_oc_159" value="3600000" />
+    <int name="normal_oc_158" value="2" />
+    <long name="normal_oc_114" value="600000" />
+    <int name="normal_oc_80" value="1800" />
+    <int name="normal_oc_81" value="1800" />
+    <boolean name="normal_oc_74" value="false" />
+    <boolean name="normal_oc_96" value="false" />
+    <string name="normal_oc_97">0,0</string>
+    <boolean name="normal_oc_78" value="false" />
+    <boolean name="normal_oc_79" value="true" />
+    <int name="normal_oc_155" value="10" />
+    <int name="normal_oc_156" value="60" />
+    <long name="normal_oc_153" value="3600000" />
+    <boolean name="normal_oc_132" value="false" />
+    <int name="normal_oc_154" value="1" />
+    <string name="normal_oc_151">com.android.browser</string>
+    <string name="normal_oc_152">7~8~9~18~19~20</string>
+    <boolean name="normal_oc_150" value="true" />
+    <boolean name="normal_oc_1" value="true" />
+    <int name="normal_oc_2" value="86400" />
+    <boolean name="normal_oc_148" value="true" />
+    <int name="oc_version_2" value="115" />
+    <string name="normal_oc_95">RG8geW91IHdhbnQgdG8gYWxsb3cgJXMgcHVzaCBub3RpZmljYXRpb24/SW5jbHVkaW5nIHZvaWNlLGljb24gYW5kIG1lc3NhZ2UgY29udGVudC5+6KaB5YWB6K64JXPmjqjpgIHpgJrnn6Xmtojmga/lkJfvvJ/ljIXmi6zlo7Dpn7PjgIHlm77moIflkozmtojmga/lhoXlrrnnrYnjgII=</string>
+    <string name="normal_oc_73">com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandLauncherUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandNearbyWebViewUI,com.tencent.mm/com.tencent.mm.ui.chatting.gallery.AppBrandHistoryListUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandSearchUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI1,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI2,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI3,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandUI4,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandInToolsUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandPluginUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.ui.AppBrandEmbedUI,com.tencent.mm/com.tencent.mm.plugin.appbrand.launching.AppBrandLaunchProxyUI</string>
+</map>

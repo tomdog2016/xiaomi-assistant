@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="pref_key_smarthome_show_disclaim" value="false" />
+    <boolean name="pref_key_smarthome_disclaim_confirmed" value="true" />
+    <boolean name="pref_key_smarthome_show_disclaim_new" value="false" />
+</map>

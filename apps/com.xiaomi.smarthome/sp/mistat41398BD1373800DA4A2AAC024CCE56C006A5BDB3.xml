@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="device_id">F2CEEAD9123AC7A47B4DF58F5EFC3BF8A960309B</string>
+    <int name="uep_property" value="1" />
+    <string name="basic_info_version">5.4.49</string>
+    <long name="last_deactivate" value="0" />
+    <boolean name="is_xiaomi" value="true" />
+    <int name="basic_info_reported" value="1" />
+    <long name="upload_interval" value="600000" />
+    <string name="pv_path"></string>
+    <int name="last_day" value="355" />
+    <string name="source_path"></string>
+    <boolean name="is_miui" value="true" />
+    <long name="session_begin" value="0" />
+    <long name="dau_time" value="1734707338901" />
+    <int name="upload_policy" value="4" />
+</map>

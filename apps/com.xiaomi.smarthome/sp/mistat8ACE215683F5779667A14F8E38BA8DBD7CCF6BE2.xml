@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="device_id">F2CEEAD9123AC7A47B4DF58F5EFC3BF8A960309B</string>
+    <long name="upload_interval" value="600000" />
+    <boolean name="is_miui" value="true" />
+    <int name="upload_policy" value="4" />
+</map>

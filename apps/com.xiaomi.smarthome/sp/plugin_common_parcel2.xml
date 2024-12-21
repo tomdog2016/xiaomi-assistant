@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="last_check_update" value="1734707287053" />
+    <long name="developer_list_last_modify" value="1670922678" />
+    <string name="device_list_md5">81e54308cd491e52f3e80a628453c0c05986</string>
+    <string name="developer_list_md5">2e499281b03ba7fc419f661df27a4fd61943</string>
+    <int name="last_check_version" value="62834" />
+    <boolean name="device_list_local" value="false" />
+    <long name="device_list_last_modify" value="1734702772" />
+    <string name="plugin_record_md5">563ce7c6a452bb154d8525cc44276c3e5978</string>
+</map>

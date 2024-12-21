@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="devId">644A177EDC417FB5DEF79D81D02C595D64E430C1</string>
+    <boolean name="valid" value="true" />
+    <string name="regResource">i3PliK</string>
+    <string name="vName">5.4.49</string>
+    <int name="envType" value="1" />
+    <string name="appToken">5541723310197</string>
+    <string name="appId">2882303761517233197</string>
+    <string name="regId">ABnBIzdo4W97cRPURVo4/cnQaqHhP8Q7A/HyqoLe0VYZWXjkfbcGF9lpMxZD09Mi</string>
+    <string name="regSec">FLQZd2elP15tM87F+WAAAA==</string>
+    <string name="appRegion">China</string>
+</map>

@@ -1,0 +1,17 @@
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:213] Don't send message before initialization succeeded! 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:213] Don't send message before initialization succeeded! 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:213] MIIDManager startMIIDUpdateListener failed cause lack of GET_ACCOUNTS permission 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] receive an intent from server, action=com.xiaomi.mipush.RECEIVE_MESSAGE 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] processing a message, action=Registration 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] Perf_code  packetType  2037  length 231 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] Perf_code  packetType  2041  length 270 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH : assemble push register 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH :  HW user switch : true HW online switch : true HW isSupport : false 
+2024-12-20 23:08:07 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH :  COS user switch : true COS online switch : true COS isSupport : false 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:213] Perf_code  packetType  2016  length 228 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] receive an intent from server, action=com.xiaomi.mipush.RECEIVE_MESSAGE 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] processing a message, action=Notification 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] Perf_code  packetType  2014  length 2898 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH : assemble push register 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH :  HW user switch : true HW online switch : true HW isSupport : false 
+2024-12-20 23:08:12 下午 com.xiaomi.smarthome [Thread:255] ASSEMBLE_PUSH :  COS user switch : true COS online switch : true COS isSupport : false 

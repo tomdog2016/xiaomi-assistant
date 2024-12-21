@@ -1,0 +1,82 @@
+小米音箱Token获取探索过程
+一、设备发现阶段
+使用 discover_miio.py 在局域网内发现设备
+python
+CopyInsert
+# 发现结果
+设备ID: 08f83588
+IP地址: 192.168.1.45
+通过 find_speaker.py 验证设备可访问性
+确认设备可以通过局域网访问
+但无法直接控制，需要云端Token
+二、初始Token获取尝试
+第一次尝试：直接使用设备ID和账号密码
+遇到问题：签名验证失败
+原因：签名算法不正确
+第二次尝试：修改签名生成
+使用 HMAC-SHA1 算法
+遇到问题：401 认证错误
+原因：缺少必要的请求参数
+三、参考 miservice 实现
+分析 miservice 源码的关键实现：
+python
+CopyInsert
+# 关键发现
+- 使用 HMAC-SHA256 而不是 SHA1
+- 正确的签名字符串格式
+- PassportDeviceId 的使用
+- 必要的请求参数
+修改实现：
+使用固定的 PassportDeviceId
+正确生成 nonce 和签名
+添加必要的请求参数
+四、最终成果
+成功获取设备列表，发现两个音箱：
+小米AI音箱（目标设备）
+Code
+CopyInsert
+设备ID: 150484360
+Token: 64714770775332654a6b383073673576
+MAC地址: E4:DB:6D:6A:21:66
+型号: xiaomi.wifispeaker.s12
+小爱音箱Play
+Code
+CopyInsert
+设备ID: 703588234
+Token: 1be9d60212c18b799946a82a1ef575ba
+MAC地址: 4C:C6:4C:3A:03:15
+型号: xiaomi.wifispeaker.l05b
+重要发现：
+之前发现的设备ID 08f83588 是本地ID
+云端使用不同的设备ID系统
+Token 是长期有效的，不需要频繁更新
+五、技术要点
+登录流程：
+Code
+CopyInsert
+1. 获取登录参数
+2. 使用账号密码登录
+3. 获取 serviceToken
+4. 从响应头获取 ssecurity
+设备列表获取：
+Code
+CopyInsert
+1. 准备请求参数
+2. 生成签名
+3. 发送请求
+4. 解析设备信息
+关键参数：
+PassportDeviceId：客户端标识
+serviceToken：服务认证
+ssecurity：签名密钥
+accessKey：API访问密钥
+六、后续使用
+Token 已保存到 device_info.txt
+Token 通常长期有效
+如果失效可重新运行脚本获取
+可用于后续的设备控制开发
+七、经验总结
+小米设备控制需要云端认证
+设备有本地ID和云端ID两套系统
+正确的签名算法和参数格式至关重要
+参考官方SDK的实现可以节省很多时间
