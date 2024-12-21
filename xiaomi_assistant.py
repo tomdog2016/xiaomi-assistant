@@ -3,11 +3,12 @@ import json
 import os
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                             QHBoxLayout, QPushButton, QLabel, QLineEdit, 
-                            QTableWidget, QTableWidgetItem, QMessageBox,
-                            QTabWidget, QGroupBox, QToolBar, QStatusBar)
+                            QTableWidget, QTableWidgetItem, QToolBar, QStatusBar,
+                            QTextEdit, QDialog, QMessageBox)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QFont, QAction
-from get_mi_token import MiAccount
+from get_mi_token import MiToken
+from gemini_service import GeminiService
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -21,147 +22,82 @@ class MainWindow(QMainWindow):
         # 设置窗口半透明
         self.setWindowOpacity(0.95)
         
-        # 创建工具栏
-        self.create_toolbar()
+        # 初始化界面
+        self.init_ui()
         
         # 创建状态栏
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
         self.statusBar.showMessage("准备就绪")
         
-        # 创建主widget和布局
-        main_widget = QWidget()
-        self.setCentralWidget(main_widget)
-        layout = QVBoxLayout(main_widget)
+        # 创建工具栏
+        self.create_toolbar()
         
-        # 创建标签页
-        tabs = QTabWidget()
-        layout.addWidget(tabs)
+        # 初始化服务
+        self.mi_token = None
+        self.gemini_service = None
+        try:
+            self.gemini_service = GeminiService()
+            self.statusBar.showMessage("Gemini API 已连接")
+        except Exception as e:
+            self.statusBar.showMessage(f"Gemini API 连接失败: {str(e)}")
+
+    def init_ui(self):
+        # 创建中央部件
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
         
-        # 设备管理标签页
-        device_tab = QWidget()
-        device_layout = QVBoxLayout(device_tab)
+        # 创建主布局
+        layout = QVBoxLayout(central_widget)
         
-        # 登录组
-        login_group = QGroupBox("账号登录")
+        # 创建登录部分
         login_layout = QHBoxLayout()
-        
-        # 用户名输入
-        username_label = QLabel("用户名:")
         self.username_input = QLineEdit()
-        login_layout.addWidget(username_label)
-        login_layout.addWidget(self.username_input)
-        
-        # 密码输入
-        password_label = QLabel("密码:")
+        self.username_input.setPlaceholderText("小米账号")
         self.password_input = QLineEdit()
+        self.password_input.setPlaceholderText("密码")
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
-        login_layout.addWidget(password_label)
+        login_button = QPushButton("登录")
+        login_button.clicked.connect(self.login)
+        
+        login_layout.addWidget(self.username_input)
         login_layout.addWidget(self.password_input)
+        login_layout.addWidget(login_button)
         
-        # 登录按钮
-        self.login_button = QPushButton("登录")
-        self.login_button.clicked.connect(self.login)
-        login_layout.addWidget(self.login_button)
+        layout.addLayout(login_layout)
         
-        login_group.setLayout(login_layout)
-        device_layout.addWidget(login_group)
-        
-        # 设备列表
-        device_list_group = QGroupBox("设备列表")
-        device_list_layout = QVBoxLayout()
-        
-        # 创建表格
+        # 创建设备列表
         self.device_table = QTableWidget()
-        self.device_table.setColumnCount(6)
-        self.device_table.setHorizontalHeaderLabels(["设备名称", "型号", "设备ID", "MAC地址", "Token", "状态"])
-        self.device_table.horizontalHeader().setStretchLastSection(True)
-        device_list_layout.addWidget(self.device_table)
+        self.device_table.setColumnCount(4)
+        self.device_table.setHorizontalHeaderLabels(["设备名称", "设备ID", "设备Token", "设备IP"])
+        layout.addWidget(self.device_table)
         
-        # 刷新按钮
-        refresh_button = QPushButton("刷新设备列表")
-        refresh_button.clicked.connect(self.refresh_devices)
-        device_list_layout.addWidget(refresh_button)
+        # 创建聊天部分
+        chat_layout = QVBoxLayout()
         
-        device_list_group.setLayout(device_list_layout)
-        device_layout.addWidget(device_list_group)
+        # 聊天历史显示区域
+        self.chat_history = QTextEdit()
+        self.chat_history.setReadOnly(True)
+        chat_layout.addWidget(self.chat_history)
         
-        # 添加设备管理标签页
-        tabs.addTab(device_tab, "设备管理")
+        # 消息输入和发送区域
+        input_layout = QHBoxLayout()
+        self.message_input = QLineEdit()
+        self.message_input.setPlaceholderText("输入消息...")
+        self.message_input.returnPressed.connect(self.send_message)
         
-        # 初始化成员变量
-        self.mi_account = None
-        self.service_token = None
+        send_button = QPushButton("发送")
+        send_button.clicked.connect(self.send_message)
         
-        # 设置样式
-        self.setStyleSheet("""
-            QMainWindow {
-                background-color: rgba(240, 240, 240, 0.95);
-            }
-            QToolBar {
-                background-color: rgba(230, 230, 230, 0.95);
-                border: none;
-                spacing: 10px;
-                padding: 5px;
-            }
-            QStatusBar {
-                background-color: rgba(230, 230, 230, 0.95);
-                color: #666666;
-            }
-            QGroupBox {
-                font-weight: bold;
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                border-radius: 5px;
-                margin-top: 1ex;
-                padding: 10px;
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 3px 0 3px;
-            }
-            QPushButton {
-                background-color: rgba(76, 175, 80, 0.9);
-                color: white;
-                border: none;
-                padding: 5px 15px;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: rgba(69, 160, 73, 0.9);
-            }
-            QTableWidget {
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                gridline-color: rgba(224, 224, 224, 0.8);
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-            QHeaderView::section {
-                background-color: rgba(248, 249, 250, 0.9);
-                padding: 4px;
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                font-weight: bold;
-            }
-            QLineEdit {
-                padding: 5px;
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                border-radius: 3px;
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-            QTabWidget::pane {
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-            QTabBar::tab {
-                background-color: rgba(230, 230, 230, 0.9);
-                border: 1px solid rgba(204, 204, 204, 0.8);
-                padding: 5px 10px;
-                margin-right: 2px;
-            }
-            QTabBar::tab:selected {
-                background-color: rgba(255, 255, 255, 0.9);
-            }
-        """)
+        clear_button = QPushButton("清除历史")
+        clear_button.clicked.connect(self.clear_chat)
+        
+        input_layout.addWidget(self.message_input)
+        input_layout.addWidget(send_button)
+        input_layout.addWidget(clear_button)
+        
+        chat_layout.addLayout(input_layout)
+        layout.addLayout(chat_layout)
 
     def create_toolbar(self):
         toolbar = QToolBar()
@@ -209,30 +145,24 @@ class MainWindow(QMainWindow):
             
         try:
             self.statusBar.showMessage("正在登录...")
-            self.mi_account = MiAccount(username, password)
-            self.service_token = self.mi_account.login()
+            self.mi_token = MiToken(username, password)
+            self.mi_token.login()
             
-            if self.service_token:
-                QMessageBox.information(self, "成功", "登录成功！")
-                self.statusBar.showMessage("登录成功")
-                self.refresh_devices()
-            else:
-                QMessageBox.warning(self, "错误", "登录失败，请检查用户名和密码")
-                self.statusBar.showMessage("登录失败")
-                
+            self.statusBar.showMessage("登录成功")
+            self.refresh_devices()
         except Exception as e:
             QMessageBox.critical(self, "错误", f"登录时发生错误：{str(e)}")
             self.statusBar.showMessage("登录出错")
 
     def refresh_devices(self):
-        if not self.mi_account or not self.service_token:
+        if not self.mi_token:
             QMessageBox.warning(self, "错误", "请先登录")
             return
             
         try:
             self.statusBar.showMessage("正在获取设备列表...")
             # 获取设备列表
-            devices = self.mi_account.get_device_list(self.service_token)
+            devices = self.mi_token.get_device_list()
             
             # 清空表格
             self.device_table.setRowCount(0)
@@ -244,11 +174,9 @@ class MainWindow(QMainWindow):
                 
                 # 设置单元格内容
                 self.device_table.setItem(row, 0, QTableWidgetItem(device.get('name', '')))
-                self.device_table.setItem(row, 1, QTableWidgetItem(device.get('model', '')))
-                self.device_table.setItem(row, 2, QTableWidgetItem(device.get('did', '')))
-                self.device_table.setItem(row, 3, QTableWidgetItem(device.get('mac', '')))
-                self.device_table.setItem(row, 4, QTableWidgetItem(device.get('token', '')))
-                self.device_table.setItem(row, 5, QTableWidgetItem('在线' if device.get('isOnline') else '离线'))
+                self.device_table.setItem(row, 1, QTableWidgetItem(device.get('did', '')))
+                self.device_table.setItem(row, 2, QTableWidgetItem(device.get('token', '')))
+                self.device_table.setItem(row, 3, QTableWidgetItem(device.get('ip', '')))
                 
             # 调整列宽
             self.device_table.resizeColumnsToContents()
@@ -257,6 +185,39 @@ class MainWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "错误", f"刷新设备列表时发生错误：{str(e)}")
             self.statusBar.showMessage("获取设备列表失败")
+
+    def send_message(self):
+        """发送消息到Gemini并显示回复"""
+        if not self.gemini_service:
+            QMessageBox.warning(self, "错误", "Gemini API 未连接")
+            return
+            
+        message = self.message_input.text().strip()
+        if not message:
+            return
+            
+        # 显示用户消息
+        self.chat_history.append(f"<p style='color: blue;'>你: {message}</p>")
+        self.message_input.clear()
+        
+        try:
+            # 获取Gemini回复
+            response = self.gemini_service.send_message(message)
+            # 显示回复
+            self.chat_history.append(f"<p style='color: green;'>Gemini: {response}</p>")
+        except Exception as e:
+            self.chat_history.append(f"<p style='color: red;'>错误: {str(e)}</p>")
+        
+        # 滚动到底部
+        self.chat_history.verticalScrollBar().setValue(
+            self.chat_history.verticalScrollBar().maximum()
+        )
+    
+    def clear_chat(self):
+        """清除聊天历史"""
+        self.chat_history.clear()
+        if self.gemini_service:
+            self.gemini_service.reset_chat()
 
 def main():
     app = QApplication(sys.argv)
